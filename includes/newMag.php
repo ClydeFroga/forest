@@ -3,9 +3,9 @@
         'taxonomy' => 'issue',
         'number' => '2',
         'order_by' => 'term_order',
-        'order' => 'DESC',
+        'order' => 'ASC',
     ));
-
+$lastMagazine = array_values($lastMagazine);
 	$term = $lastMagazine[1];
 	$term1 = $lastMagazine[0];
 	$term2 = $term;

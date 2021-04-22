@@ -2,7 +2,7 @@
 
 ?>
 
-<div class="container single <?php if (is_page()) echo 'page' ?>">
+<div class="container single">
 	<?php get_template_part('includes/breadcrumbs'); ?>
 	
 	<div class=" foxyOne">
@@ -54,7 +54,7 @@
 		require locate_template('includes/readersChoise.php');
 	?>
 	
-	<?php if (!is_page()) { ?>
+
   	<div class="firstContent verticalBlock verticalBlockMain">
     <a class="verticalBlock__ImgBlc">
       <div class="imgBlock imgBlockFull">
@@ -63,20 +63,20 @@
     </a>
 
     <a class="verticalBlock__TextBlc">
-      <p>
+      <h1>
 				<?php the_title(); ?>
-      </p>
+      </h1>
     </a>
   
   </div>
-		<?php get_template_part('includes/grade'); ?>
+		<?php //get_template_part('includes/grade'); ?>
 		
 		<div class="disqus">
-			<?php comments_template();?>
+			<?php //comments_template();?>
 		</div>
 		
 		<?php get_template_part('includes/sharingAndErrors'); ?>
-	<?php } ?>
+
 	
   <div class="single__mainContent">
 		<?php the_content(); ?>

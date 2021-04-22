@@ -18,19 +18,25 @@
             'taxonomy' => 'issue',
             'number' => '2',
             'order_by' => 'term_order',
-            'order' => 'DESC',
+            'order' => 'ASC',
         ));
+        $lastMagazine = array_values($lastMagazine);
 
         $term = $lastMagazine[1];
         $term1 = $lastMagazine[0];
         $term2 = $term;
         $reliz_jrnl1 = get_field('reliz_jrnl', $term);
         $my_date = date('Ymd');
+
+
         if($reliz_jrnl1 <= $my_date){
             $term = $term1;
+            $off = 1;
         }else{
+            $off = 0;
             $term = $term2;
         };
+
 		$magazine_link = get_term_link($term -> term_id, 'issue');
 		?>
 		<div class="mainPageWrapper-part5__leftInsideBot">
@@ -54,7 +60,7 @@
 						'taxonomy' => 'issue',
 						'number' => '4',
 						'offset' => $off,
-						'order' => 'DESC',
+						'order' => 'ASC',
 					));
 					foreach( $magazins as $mag ) {
 				?>

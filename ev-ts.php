@@ -41,13 +41,17 @@ Template name: Мероприятия
 								#_EVENTNAME
 							</a>
 					
+					       <a href="#_EVENTURL">
+					            #_EVENTEXCERPT{20,...}
+                            </a>
+                            
 							<div class="dateAndViews dateAndViewsEvents">
-                <span class="date">
-                  #_EVENTDATES
-                </span>
-								<span class="location">
-                  #_LOCATIONTOWN
-                </span>
+                                <span class="date">
+                                  #_EVENTDATES
+                                </span>
+                                                <span class="location">
+                                  #_LOCATIONTOWN
+                                </span>
 							</div>
 					
 							<div class="tags">
@@ -70,14 +74,18 @@ Template name: Мероприятия
 							<a href="#_EVENTURL">
 								#_EVENTNAME
 							</a>
+							
+                           <a href="#_EVENTURL">
+					            #_EVENTEXCERPT{20,...}
+                            </a>
 					
 							<div class="dateAndViews dateAndViewsEvents">
-                <span class="date">
-                  #_EVENTDATES
-                </span>
-								<span class="location">
-                  #_LOCATIONTOWN
-                </span>
+                                <span class="date">
+                                  #_EVENTDATES
+                                </span>
+                                                <span class="location">
+                                  #_LOCATIONTOWN
+                                </span>
 							</div>
 					
 							<div class="tags">

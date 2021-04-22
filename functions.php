@@ -67,6 +67,35 @@
 			'show_in_rest'          => true,
 			'rest_base'             => null,
 		] );
+        register_taxonomy( 'expert', [ 'post' ], [
+            'label'                 => '',
+            'labels'                => [
+                'name'              => 'Эксперты',
+                'singular_name'     => 'Эксперт',
+                'search_items'      => 'Искать эксперта',
+                'all_items'         => 'Все эксперты',
+                'view_item '        => 'Показать эксперта',
+                'parent_item'       => 'Родительский эксперт',
+                'parent_item_colon' => 'Родительский эксперт:',
+                'edit_item'         => 'Редактировать эксперта',
+                'update_item'       => 'Обновить эксперта',
+                'add_new_item'      => 'Добавить нового эксперта',
+                'new_item_name'     => 'Название нового эксперта',
+                'menu_name'         => 'Эксперты',
+            ],
+            'description'           => '',
+            'show_ui' => 						true,
+            'public'                => true,
+            'show_in_nav_menus'     => true,
+            'show_in_menu'          => true,
+            'hierarchical'          => true,
+            'rewrite'               => true,
+            'capabilities'          => array(),
+            'meta_box_cb'           => null,
+            'show_admin_column'     => true,
+            'show_in_rest'          => true,
+            'rest_base'             => null,
+        ] );
 	}
 	
 	// Добавление картинок для журналов
@@ -317,11 +346,30 @@
 	
 	// регистрация панелей виджетов
 	add_action( 'widgets_init', 'register_my_widgets' );
+
 	function register_my_widgets(){
 		register_sidebar( array(
 			'name'          => 'Опрос в зеленой рамке',
 			'id'            => "quiz_poll",
 		) );
+        register_sidebar( array(
+            'name'          => 'Растяжка',
+            'id'            => "topbanner",
+            'description'   => '',
+
+        ) );
+        register_sidebar( array(
+            'name'          => 'Растяжка на прототипах',
+            'id'            => "protobaner",
+            'description'   => '',
+
+        ) );
+        register_sidebar( array(
+            'name'          => 'Нижняя плашка',
+            'id'            => "bottomfixed",
+            'description'   => '',
+
+        ) );
 	}
 	
 	//kama_excerpt
@@ -427,7 +475,7 @@
 			'offset' => $offsetLoad,
 			'number' => '9',
 			'order_by' => 'term_order',
-			'order' => 'DESC',
+			'order' => 'ASC',
 		));
 		
 		if( $magazines3 ) :
@@ -480,6 +528,30 @@
         die();
     }
 
+    function expertLoadmore(){
+    $offsetLoad = $_POST['offset'];
+    $terms = get_terms( array(
+        'taxonomy'      => array( 'expert'),
+        'orderby'       => 'slug',
+        'order'         => 'ASC',
+        'offset'         => $offsetLoad,
+        'hide_empty'    => false,
+        'number'    => 23,
+    ) );
+
+    if( $terms ) :
+
+        foreach( $terms as $term ) {
+            $img_url = get_field('photoexpert', 'expert_' . $term->term_id);
+            $link = get_term_link( $term->term_id, $term->taxonomy );
+            require locate_template('includes/expertBlock.php');
+
+        }
+
+    endif;
+    die();
+}
+
 	add_action('wp_ajax_loadmore', 'true_load_posts');
 	add_action('wp_ajax_nopriv_loadmore', 'true_load_posts');
 
@@ -492,3 +564,177 @@
     add_action('wp_ajax_filterLoad', 'filterLoad');
     add_action('wp_ajax_nopriv_filterLoad', 'filterLoad');
 
+    add_action('wp_ajax_expertLoadmore', 'expertLoadmore');
+    add_action('wp_ajax_nopriv_expertLoadmore', 'expertLoadmore');
+
+/**
+ * Deal with the custom RSS templates.
+ */
+function my_custom_rss() {
+        get_template_part( 'feed' );
+}
+remove_all_actions( 'do_feed_rss2' );
+add_action( 'do_feed_rss2', 'my_custom_rss', 10, 1 );
+
+
+function true_top_posts_widget_load() {
+    register_widget( 'trueTopPostsWidget' );
+    register_widget( 'bottomFixedBlock' );
+}
+
+class trueTopPostsWidget extends WP_Widget {
+    function __construct() {
+        parent::__construct(
+            'topBanner',
+            'Баннер верхний', // заголовок виджета
+            array( 'description' => '' ) // описание
+        );
+    }
+
+    public function widget( $args, $instance ) {
+        $title2 = $instance['title2'];
+        $text = $instance['text'];
+        $link = $instance['link'];
+        $image = $instance['image'];
+        $image2 = $instance['image2'];
+        $logo = $instance['logo'];
+        
+        require locate_template('includes/header__container.php');
+
+    }
+
+    public function form( $instance ) {
+
+        if ( isset( $instance[ 'title2' ] ) ) {
+            $title2 = $instance[ 'title2' ];
+        }
+        if ( isset( $instance[ 'text' ] ) ) {
+            $text = $instance[ 'text' ];
+        }
+        if ( isset( $instance[ 'link' ] ) ) {
+            $link = $instance[ 'link' ];
+        }
+        if ( isset( $instance[ 'image' ] ) ) {
+            $image = $instance[ 'image' ];
+        }
+        if ( isset( $instance[ 'image2' ] ) ) {
+            $image2 = $instance[ 'image2' ];
+        }
+        if ( isset( $instance[ 'logo' ] ) ) {
+            $logo = $instance[ 'logo' ];
+        }
+        ?>
+
+        <p>
+            <label for="<?php echo $this->get_field_id( 'title2' ); ?>">Заголовок для свернутого режима</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'title2' ); ?>" name="<?php echo $this->get_field_name( 'title2' ); ?>" type="text" value="<?php echo esc_attr( $title2 ); ?>" />
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'text' ); ?>">Скрытый текст:</label>
+            <?php wp_editor( $text, $this->get_field_id( 'text' ), array(
+                'wpautop'       => 1,
+                'media_buttons' => 1,
+                'textarea_name' => $this->get_field_name( 'text' ),
+                'textarea_rows' => 20,
+                'tabindex'      => null,
+                'editor_css'    => '',
+                'editor_class'  => '',
+                'teeny'         => 0,
+                'dfw'           => 0,
+                'tinymce'       => 0,
+                'quicktags'     => 1,
+                'drag_drop_upload' => false
+            ) ); ?>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'link' ); ?>">Ссылка:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" type="text" value="<?php echo $link; ?>"/>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'image' ); ?>">Ссылка на фоновое изображение(на разрешение > 576):</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'image' ); ?>" name="<?php echo $this->get_field_name( 'image' ); ?>" type="text" value="<?php echo $image; ?>"/>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'image2' ); ?>">Ссылка на фоновое изображение(на разрешение <= 576):</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'image2' ); ?>" name="<?php echo $this->get_field_name( 'image2' ); ?>" type="text" value="<?php echo $image2; ?>"/>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'logo' ); ?>">Ссылка на изображение лого отображаемое в свернутом режиме (20x20px):</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'logo' ); ?>" name="<?php echo $this->get_field_name( 'logo' ); ?>" type="text" value="<?php echo $logo; ?>"/>
+        </p>
+        <?php
+    }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance['title2'] = ( ! empty( $new_instance['title2'] ) ) ? strip_tags( $new_instance['title2'] ) : '';
+        $instance['text'] = ( ! empty( $new_instance['text'] ) ) ? $new_instance['text']  : '';
+        $instance['link'] = ( ! empty( $new_instance['link'] ) ) ? $new_instance['link']  : '';
+        $instance['image'] = ( ! empty( $new_instance['image'] ) ) ? $new_instance['image'] : '';
+        $instance['image2'] = ( ! empty( $new_instance['image2'] ) ) ? $new_instance['image2'] : '';
+        $instance['logo'] = ( ! empty( $new_instance['logo'] ) ) ? $new_instance['logo'] : '';
+        return $instance;
+    }
+}
+class bottomFixedBlock extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+            'bottomBlock',
+            'Нижняя плашка', // заголовок виджета
+            array( 'description' => 'поялвяется на странице и записях новостей' ) // описание
+        );
+    }
+
+    public function widget( $args, $instance ) {
+
+        $text = $instance['text'];
+        $link = $instance['link'];
+
+        require locate_template('includes/bottomFixedBlock.php');
+
+    }
+
+    public function form( $instance ) {
+        if ( isset( $instance[ 'text' ] ) ) {
+            $text = $instance[ 'text' ];
+        }
+        if ( isset( $instance[ 'link' ] ) ) {
+            $link = $instance[ 'link' ];
+        }
+        ?>
+
+
+        <p>
+            <label for="<?php echo $this->get_field_id( 'text' ); ?>">Текст:</label>
+            <?php wp_editor( $text, $this->get_field_id( 'text' ), array(
+                'wpautop'       => 1,
+                'media_buttons' => 1,
+                'textarea_name' => $this->get_field_name( 'text' ),
+                'textarea_rows' => 20,
+                'tabindex'      => null,
+                'editor_css'    => '',
+                'editor_class'  => '',
+                'teeny'         => 0,
+                'dfw'           => 0,
+                'tinymce'       => 0,
+                'quicktags'     => 1,
+                'drag_drop_upload' => false
+            ) ); ?>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id( 'link' ); ?>">Ссылка:</label>
+            <input class="widefat" id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" type="text" value="<?php echo $link; ?>"/>
+        </p>
+        <?php
+    }
+
+    public function update( $new_instance, $old_instance ) {
+        $instance = array();
+        $instance['text'] = ( ! empty( $new_instance['text'] ) ) ? $new_instance['text']  : '';
+        $instance['link'] = ( ! empty( $new_instance['link'] ) ) ? $new_instance['link']  : '';
+        return $instance;
+    }
+}
+
+add_action( 'widgets_init', 'true_top_posts_widget_load' );

@@ -1,7 +1,6 @@
 <div class="filter">
 
-    <span class="h2Title">Рубрикатор</span>
-
+    <span class="h2Title">фильтр по рубрикам и разделам</span>
 
     <div class="filter__hide">
         <div class="filter__all">
@@ -23,7 +22,7 @@
             }
 
             foreach( $terms as $term ){?>
-                <span id="<?php print_r($term -> slug); ?>" data="<?php print_r($term -> name); ?>">
+            <span class="added" id="<?php print_r($term -> slug); ?>" data="<?php print_r($term -> name); ?>">
                 <?php print_r($term -> name); ?>
             </span>
             <?php }
@@ -31,7 +30,11 @@
             ?>
         </div>
 
-        <span class="filter__display button buttonGreen">Применить</span>
+        <div class="filter__hiddenBlc">
+            <span class="filter__display button buttonGreen">Применить</span>
+            <span id="full" class="filter__cancel">снять выделение</span>
+        </div>
+
     </div>
 
     <script>
@@ -45,6 +48,6 @@
         <?php } ?>
     </script>
 
-    <script type="text/javascript" src="<?php bloginfo('template_url')?>/js/filter.min.js?version=3"></script>
+    <script type="text/javascript" src="<?php bloginfo('template_url')?>/js/filter.min.js?version=5"></script>
 </div>
 

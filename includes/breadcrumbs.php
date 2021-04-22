@@ -31,24 +31,27 @@ $cat_link = get_category_link($cat_id);
 			$categoryPost = get_the_terms($post->ID, 'category');
 				if($categoryPost[0]) {
 			?>
-				<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-					<a href="<?php echo get_category_link($categoryPost[0] -> term_id); ?>"  itemprop="item">
-						<span itemprop="name">
-							<?php echo $categoryPost[0] -> name; ?>
-						</span>
-						<meta itemprop="position" content="1">
-					</a>
-				</span>	
+			<meta property="article:section" content="<?php echo $categoryPost[0]-> name; ?>">
+            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a href="<?php echo get_category_link($categoryPost[0] -> term_id); ?>"  itemprop="item">
+                    <span itemprop="name">
+                        <?php echo $categoryPost[0] -> name; ?>
+                    </span>
+                    <meta itemprop="position" content="1">
+                </a>
+            </span>
+
 		<span>/</span>
+
 		<?php } ?>
+
 		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-			<span href="<?php the_permalink(); ?>" itemprop="item">
+			<a href="<?php the_permalink(); ?>" itemprop="item">
 				<span itemprop="name">
 					<?php the_title(); ?>
 				</span>
 				<meta itemprop="position" content="2">
-				
-			</span>
+			</a>
 		</span>
 		<?php } ?>
 		

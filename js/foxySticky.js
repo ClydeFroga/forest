@@ -1,50 +1,39 @@
 let foxyes = ['.foxyOne', ".foxyTwo", ".foxyThree"];
 
-function foxyStickyWithNews() {
+function foxySticky(blc) {
 	if(document.documentElement.clientWidth >= 1024) {
-		let full = document.querySelector('.foxyFullOne')
-		let last = document.querySelector('.readersChoise')
-		if(last == null) {
-			last = document.querySelector('.anotherNews')
-		}
-		
-		let randFoxy = document.querySelector(`${foxyes[_.random(0, 2)]}`)
-		
-		if(full != undefined && last != undefined) {
-			window.addEventListener('scroll', addSticky)
-		}
-	
-		function addSticky() {
-			let longTop = full.getBoundingClientRect().top - 300
-			let lastBottom = last.getBoundingClientRect().bottom
-			if(longTop > 0 && lastBottom < -600) {
-				randFoxy.classList.add('foxySticky')
-			} else {
-				randFoxy.classList.remove('foxySticky')
-			}
-		}
-	}
-}
+		let long = document.querySelector(blc)
+		let last = document.querySelector('.last')
+		let sticky = document.querySelector('.verticalBlock1')
+		let curr = 1;
+		let prev = 0;
+		let min = Math.ceil(0);
+		let max = Math.floor(3);
+		let rand = Math.floor(Math.random() * (max - min)) + min;
 
-function foxyStickyWithoutNews() {
-	if(document.documentElement.clientWidth >= 1024) {
-		let long = document.querySelector('.foxyLong')
-		let last = document.querySelector('.readersChoise')
-	
-		let randFoxy = document.querySelector(`${foxyes[_.random(0, 2)]}`)
+		let randFoxy = document.querySelector(`${foxyes[rand]}`)
 		
 		if(long != undefined && last != undefined) {
 			window.addEventListener('scroll', addSticky)
 		}
 		
 		function addSticky() {
-			let longTop = long.getBoundingClientRect().top - 300
+			let longTop = long.getBoundingClientRect().top - 800
 			let lastBottom = last.getBoundingClientRect().bottom
-			
-			if(longTop > 0 && lastBottom < -300) {
-				randFoxy.classList.add('foxySticky')
+			if(longTop > 0 && lastBottom < -100) {
+				curr = 0;
 			} else {
-				randFoxy.classList.remove('foxySticky')
+				curr = 1;
+			}
+
+			if(curr === prev) {
+				prev === 1 ? prev = 0 : prev = 1;
+				randFoxy.classList.toggle('foxySticky')
+				try {
+					sticky.classList.toggle('foxySticky')
+				} catch(e) {
+
+				}
 			}
 		}
 		

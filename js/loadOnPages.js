@@ -45,5 +45,26 @@ jQuery(function ($) {
             }
         });
     });
+    $('#expertLoad').click(function(){
+        $('#expertLoad > span').text('Загружаю...');
+        var data = {
+            'action': 'expertLoadmore',
+            'offset': offset,
+        };
+        $.ajax({
+            url:ajaxurl,
+            data:data,
+            type:'POST',
+            success:function(data){
+                if( data ) {
+                    $('.expert-block4').append(data);
+                    $('#expertLoad > span').text('Загрузить ещё')
+                    offset += 24;
+                }  else {
+                    $('#expertLoad').remove();
+                }
+            }
+        });
+    });
 
 });

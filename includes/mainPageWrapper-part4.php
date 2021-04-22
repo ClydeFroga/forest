@@ -9,9 +9,9 @@
 			'offset' => 0,
 			'tax_query' => [
 				[
-					'taxonomy' => 'sections',
+					'taxonomy' => 'post_tag',
 					'field' => 'id',
-					'terms' => [ '2010' ] // технологии
+					'terms' => [ '2119' ] // технологии
 				],
 			]
 		] );

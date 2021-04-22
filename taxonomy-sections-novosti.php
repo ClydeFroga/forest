@@ -239,4 +239,6 @@
   </div>
 </div>
 
+<?php dynamic_sidebar('bottomfixed'); ?>
+
 <?php get_footer(); ?>

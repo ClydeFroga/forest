@@ -14,15 +14,19 @@
 			<?php the_title(); ?>
 		</p>
 		
-		<?php if($vertNum) { ?>
+		<?php if($vertNum && !$its_single) { ?>
 			<div class="dateAndViews">
 				<span class="date"><?php echo get_the_date(); ?></span>
 			</div>
 		<?php } ?>
 		
 		<p>
-			<?php echo kama_excerpt( array('maxchar'=>250, 'text'=> get_the_excerpt()) ); ?>
+			<?php echo kama_excerpt( array('maxchar'=>$maxChar ? $maxChar : 250, 'text'=> get_the_excerpt()) ); ?>
 		</p>
+
+        <?php if($its_single) { ?>
+            <p class="verticalBlock__TextBlcRead">Читать далее...</p>
+        <?php } ?>
 	</a>
 	
 	<?php

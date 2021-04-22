@@ -17,7 +17,7 @@
           <use href="<?php echo get_template_directory_uri();?>/img/icons.svg#i-logo"/>
         </svg>
       </a>
-      <button onclick="openDropdown('.navbar-collapse')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button onclick="header.openDropdown('.navbar-collapse')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <svg class="navbar-toggler-icon" role="img" >
           <use href="<?php echo get_template_directory_uri();?>/img/icons.svg#i-toggler"/>
         </svg>
@@ -95,7 +95,7 @@
               <a class="nav-link" href="#">МЕРОПРИЯТИЯ</a>
             </li>
 
-            <li class="nav-item dropdown" onclick="openDrop('.top_dropHidden')">
+            <li class="nav-item dropdown" onclick="header.openDrop('.top_dropHidden')">
               <a class="nav-link dropdown-toggle hidden-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">СПЕЦПРОЕКТЫ</a>
               <div class="dropdown-menu top_dropHidden">
                 <a class="dropdown-item" href="#">ПРЕДПРИЯТИЯ ЛПК</a>
@@ -142,7 +142,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">МЕРОПРИЯТИЯ</a>
         </li>
-        <li class="nav-item dropdown"  onclick="openDrop('.top_drop')">
+        <li class="nav-item dropdown"  onclick="header.openDrop('.top_drop')">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             СПЕЦПРОЕКТЫ
           </a>

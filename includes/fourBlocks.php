@@ -1,21 +1,66 @@
-<?php if(have_posts()) {
+<?php
+$expertPage = is_tax('expert');
+if($expertPage) {
+    $expertCount = count($wp_query -> posts);
+    if($expertCount < 13) {
+        $query = new WP_Query( [
+            'posts_per_page' => 13 - $expertCount,
+            'offset' => 0,
+            'ignore_sticky_posts'=>true,
+            'tax_query' => [
+                [
+                    'taxonomy' => 'sections',
+                    'field' => 'id',
+                    'terms' => [ '2005' ]
+                ],
+            ]
+        ] );
+    }
+}
+
+
+if(have_posts()) {
     if(is_search()) {
         $few = true;
     }
     $count = 0;
     $arhive = true;
     $INeedSections =true;
+
     while(have_posts()){
         the_post();
         ?>
 
         <?php if($count === 0) {
-            if(!is_tax('issue')) {
+            if(!is_tax('issue') && !$expertPage) {
                 $countFirst = true;
             }
             ?>
             <div class="horizontalBar horizontalBar1">
-        <?php } ?>
+            <?php if ($expertPage) {
+                $term = get_queried_object();
+                ?>
+
+                <div>
+                    <div>
+
+                        <span class="horizontalBarFirst expertImg">
+                            <img src="<?php echo get_field('photoexpert', 'expert_' . $term->term_id);?>">
+                        </span>
+
+                        <div class="horizontalBar__Right expertText">
+                            <span>
+                                <?php echo $term -> name; ?>
+                            </span>
+                            <span>
+                                <?php echo $term -> description; ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+        <?php }
+            } ?>
 
         <?php
         if($count < 5) {
@@ -71,8 +116,98 @@
 
         <?php $count++;
     }
+
+    if($query) { ?>
+        <a href="<?php echo home_url(); ?>/sections/novosti" class="h2Title">Новости</a>
+        <?php $specCount = 0;
+        $over = false;
+        while($query->have_posts()){
+            $query->the_post();
+            if($expertCount < 5) {
+                if($specCount < (4 - $expertCount)) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+
+                if($specCount === (4 - $expertCount)) {
+                    $over = true;
+                    $specCount = 3;?>
+
+                        </div>
+                    <div class="horizontalBar horizontalBar2">
+
+            <?php }
+            }
+
+            if($expertCount >= 5 && $expertCount < 7 && !$over) {
+                if($specCount < (7 - $expertCount)) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+
+                if($specCount === (7 - $expertCount)) {
+                    $over = true;
+                    $specCount = 5;?>
+
+                    </div>
+                    <div class="horizontalBar horizontalBar3">
+
+                <?php }
+            }
+
+            if($expertCount >= 7 && $expertCount < 9 && !$over) {
+                if($specCount < (9 - $expertCount)) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+
+                if($specCount === (9 - $expertCount)) {
+                    $over = true;
+                    $specCount = 8;?>
+
+                        </div>
+                    <div class="horizontalBar horizontalBar4">
+
+                <?php }
+            }
+
+            if($expertCount >= 9 && $expertCount < 13 && !$over) {
+                if($specCount < (13 - $expertCount)) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+
+                if($specCount === (13 - $expertCount)) {
+                    $over = true;
+                    $specCount = 13 - $expertCount;
+                }
+            }
+
+            if($over) {
+
+                if($specCount < 5) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+                if($specCount === 4) { ?>
+                        </div>
+                    <div class="horizontalBar horizontalBar3">
+                <?php }
+                if($specCount >= 5 && $specCount < 7) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+                if($specCount === 7) { ?>
+                        </div>
+                    <div class="horizontalBar horizontalBar4">
+                <?php }
+                if($specCount >= 7 && $specCount < 11) {
+                    require locate_template('includes/horizontalBarDiv.php');
+                }
+
+            }
+
+            $specCount++;
+        }
+    }
+
     $INeedSections =false;
     ?>
+
     </div>
     <?php
 
@@ -80,10 +215,8 @@
     <div class="horizontalBar horizontalBar1">
         <div>
             <div>
-                <a href="<?php the_permalink(); ?>" class="horizontalBarFirst imgBlock">
-                    <?php the_post_thumbnail('thumbnail'); ?>
-                    <?php if(has_tag(2124)) {
-                        ?> <div class="newsOfHour"><p>Горячая тема</p></div> <?php } ?>
+                <a href="<?php echo home_url(); ?>" class="horizontalBarFirst imgBlock">
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/empty.jpg"/>
                 </a>
                 <div class="horizontalBar__Right">
                     <a href="<?php echo home_url(); ?>">Записей в данной категории не найдено, нажав сюда вы можете вернуться на главную страницу</a>

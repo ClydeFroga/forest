@@ -37,6 +37,13 @@
     $sharing = false;
 
     require locate_template( 'includes/adfoxC_banners.php');
+
+//        $testBanners = [
+//            'c' => true
+//        ];
+//        require locate_template('includes/testBanners.php');
+
+
 	?>
 
 

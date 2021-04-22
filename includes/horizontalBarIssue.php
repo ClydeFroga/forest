@@ -27,7 +27,6 @@
 				<?php if($linkPdf) { ?>
 					<a href="<?php echo $linkPdf; ?>">Смотреть pdf</a>
 				<?php } ?>
-    
 				<a onclick="openModal()">Подписаться</a>
 			</div>
 		</div>

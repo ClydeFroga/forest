@@ -1,16 +1,12 @@
 <?php get_header(); ?>
 
 <div class="container">
-  <div class="rubric <?php if(is_tax('issue')) echo 'issue'?>">
+  <div class="rubric <?php if(is_tax('issue')) echo 'issue'; if(is_tax('expert')) echo 'expert_pageSingle'?>">
 		<?php get_template_part('includes/breadcrumbs');
 
 		if(is_category() || is_tax('sections')) {
            require locate_template('includes/filter.php');
-        }
-
-
-
-		?>
+        } ?>
 	
     <?php if(is_tax('issue')) {
         get_template_part('includes/horizontalBarIssue');
@@ -143,7 +139,22 @@
     <?php
         if(is_search()) {
             get_template_part('includes/pagination');
-        }	else {
+        }
+        else if(is_tax('expert')) {
+            if ( $wp_query->max_num_pages > 1 ) { ?>
+              <script>
+                  let offset = 13;
+                  var ajaxurl = '<?php echo site_url() ?>/wp-admin/admin-ajax.php';
+                  var true_posts = '<?php echo serialize($wp_query->query_vars); ?>';
+                  var current_page = <?php echo (get_query_var('paged')) ? get_query_var('paged') : 1; ?>;
+                  var max_pages = '<?php echo $wp_query->max_num_pages; ?>';
+              </script>
+
+              <?php	$loadMoreID = 'rubricLoad';
+              require locate_template('includes/loadmore.php');
+            }
+        }
+        else {
         if ( $wp_query->max_num_pages > 1 ) { ?>
 
             <script>

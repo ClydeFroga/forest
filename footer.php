@@ -1,6 +1,7 @@
 	<?php get_template_part('includes/listedUp'); ?>
 	
 	<footer >
+		<script src="//web.webformscr.com/apps/fc3/build/loader.js" sp-form-id="6bb0b3beacdda21740b3de0cc676f51f90d36ca51910815bbe9c88fde852bdc1"></script>
 		<?php get_template_part('includes/modalSubscription'); ?>
 		<div class="container footer">
 			<div class="footer__one">
@@ -50,12 +51,24 @@
             </div>
 		</div>
 
-		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/app.min.js?version=1.2.4"></script>
-		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/loadOnPages.min.js?version=2"></script>
+
+		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/app.min.js?version=1.3.4"></script>
 		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/swiper.min.js"></script>
 		<script>svg4everybody();</script>
 	</footer>
 	<?php get_template_part('includes/counters'); ?>
 	<?php wp_footer(); ?>
+    <script>
+        function isInternetExplorer() {
+            return window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+        }
+        if(isInternetExplorer()) {
+            let head = window.document.getElementsByTagName('head')[0]
+            let style = window.document.createElement('link')
+            style.href = "<?php bloginfo('template_url')?>/style/styleIE.css?version=1"
+            style.rel = 'stylesheet'
+            head.appendChild(style)
+        }
+    </script>
 	</body>
 </html>

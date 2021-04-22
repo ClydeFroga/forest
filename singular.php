@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php get_header();
+
+$ID = get_the_ID();
+?>
 
 <div class="container single <?php if (is_page()) echo 'page' ?>">
 	<?php get_template_part('includes/breadcrumbs'); ?>
@@ -24,6 +27,8 @@
             require locate_template('includes/dateAndViews.php');
             $tagsReq = false;
             ?>
+
+            <?php require locate_template('includes/expert.php'); ?>
 
         </div>
 
@@ -73,7 +78,7 @@
 		<?php
 			$content = get_the_content();
 			the_content();
-			$ID = get_the_ID();
+//			$ID = get_the_ID();
       $terms=get_the_terms( $ID, 'issue' );
       if( is_array( $terms ) ){
         foreach( $terms as $term ){
@@ -86,9 +91,10 @@
           $sharing = true;
           require locate_template('includes/sharingAndErrors.php');
           $sharing = false;
+          get_template_part('includes/foxyDEdited');
+      } else {
+          get_template_part('includes/foxyD');
       }
-
-        get_template_part('includes/foxyDEdited');
         ?>
 	</div>
 	
@@ -142,15 +148,45 @@
 		
 		wp_reset_postdata();
 	?>
-	
 
-	
-	
+    <div class="last">
+
+    </div>
+
+    <?php
+    global $wp_query;
+    $vertNum = 1;
+
+    $r = rand(0, 6);
+    $a = get_option( 'sticky_posts' );
+    $sss = array_slice($a, $r, 1);
+
+    $query = new WP_Query( array(
+        'numberposts' => 1,
+        'post__in'     => $sss,
+    ) );
+
+
+    if ( $query->have_posts() ) {
+        $INeedCategories =true;
+        $its_single =true;
+        $maxChar = 125;
+            $query->the_post();
+            require locate_template('includes/verticalBlock.php');
+        $its_single =true;
+        $INeedCategories =false;
+    }
+
+    wp_reset_postdata();
+
+    ?>
+
 	<?php if (!is_page() && !has_term(2005, 'sections')) { ?>
 		<?php get_template_part('includes/grade'); ?>
-		<div class="disqus">
-			<?php comments_template();?>
-		</div>
+
+<!--		<div class="disqus">-->
+<!--			--><?php //comments_template();?>
+<!--		</div>-->
 	<?php } ?>
 	
 	<?php get_template_part('includes/greenBlock'); ?>
@@ -175,12 +211,12 @@
 	?>
 	
 	<?php
-
 			$readersChoiseLimit = 5;
 			$readersChoiseName = 'Выбор читателей';
 			require locate_template('includes/readersChoise.php');
 
 	?>
+
 	<?php get_template_part('includes/mainPageWrapper-part3'); ?>
  
 	<?php if(has_term(2005, 'sections')) {
@@ -196,7 +232,7 @@
 			var offset = 0;
 			var exclude = '<?php echo $currentId; ?>';
 		</script>
-		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/loadMore.min.js?version=1.0.1"></script>
+		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/loadMore.min.js?version=1.0.3"></script>
 		<script>
             loadMoreOnNews();
         </script>
@@ -205,5 +241,14 @@
 	<?php require locate_template('includes/singularScripts.php'); ?>
 	
 </div>
-	
+
+
+<?php
+if(has_term(2005, 'sections')) {
+    dynamic_sidebar('bottomfixed');
+}
+?>
+
+    <script type="text/javascript" src="<?php bloginfo('template_url')?>/js/thumbs.min.js?version=1.0.0"></script>
+
 <?php get_footer(); ?>

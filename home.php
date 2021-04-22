@@ -129,7 +129,7 @@
 
 <?php get_template_part('includes/bigSubForm'); ?>
 
-<?php //get_template_part('includes/partners-slider'); ?>
+<?php get_template_part('includes/partners-slider'); ?>
 
 <div class="container mainPageWrapper-part9">
 	<?php get_template_part('includes/rubricatorTitle'); ?>

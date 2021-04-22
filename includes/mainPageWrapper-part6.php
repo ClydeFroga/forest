@@ -43,15 +43,27 @@
 				
 				<a href="<?php the_permalink(); ?>" class="swiper-slide">
 					<div>
+                        <?php
+                        $experts = get_the_terms( get_the_ID(), 'expert' );
+                        if($experts !== false) {
+                            $img_url = get_field('photoexpert', 'expert_' . $experts[0]->term_id);
+                            $expert_name = $experts[0]->name;
+                            $expert_description = $experts[0]->description;
+                        }
+                        ?>
 						<div class="imgBlock">
-							<?php the_post_thumbnail('thumbnail'); ?>
+                            <?php if ($img_url) { ?>
+                                <img  src="<?php echo $img_url;?>">
+                            <?php } else { ?>
+                                <img style="width: auto;" src="<?php the_post_thumbnail_url()?>">
+                           <?php } ?>
 						</div>
 						<div>
 							<p>
-								<?php echo get_field('VI_name') ?>
+                                <?php echo $expert_name; ?>
 							</p>
 							<p>
-								<?php echo get_field('VI_position') ?>
+                                <?php echo kama_excerpt( array('maxchar'=>60, 'text'=> $expert_description) ); ?>
 							</p>
 						</div>
 					</div>
