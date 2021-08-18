@@ -19,4 +19,9 @@
             <use href="<?php echo get_template_directory_uri();?>/img/icons.svg#i-inst"/>
         </svg>
     </a>
+    <a target="_blank" href="https://t.me/forestcomplex">
+        <svg class="" role="img" >
+            <use href="<?php echo get_template_directory_uri();?>/img/icons.svg#i-telegram"/>
+        </svg>
+    </a>
 </div>

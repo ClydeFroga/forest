@@ -59,6 +59,11 @@
     <a class="verticalBlock__ImgBlc">
       <div class="imgBlock imgBlockFull">
 				<?php the_post_thumbnail('full'); ?>
+          <figcaption class="sign">
+		      <?php
+		      echo the_post_thumbnail_caption();
+		      ?>
+          </figcaption>
       </div>
     </a>
 

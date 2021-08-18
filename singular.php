@@ -11,7 +11,13 @@ $ID = get_the_ID();
             <div class="verticalBlock__ImgBlc">
                 <div class="imgBlock imgBlockFull">
                     <?php the_post_thumbnail('full'); ?>
+
                 </div>
+                <figcaption class="sign">
+		            <?php
+		            echo the_post_thumbnail_caption();
+		            ?>
+                </figcaption>
                 <?php if(has_tag(2123)) {
                     ?> <span>Новость часа</span> <?php  } ?>
             </div>
@@ -125,7 +131,8 @@ $ID = get_the_ID();
 					],
 				]
 			] );
-		} else {
+		}
+		else {
 			$title = 'Новости';
 			$AnotherNewsId= 2005;
 			$AnotherNewsCat = 'sections';

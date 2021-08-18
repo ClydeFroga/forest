@@ -112,5 +112,4 @@ jQuery(function ($) {
     operator = "EXISTS"
     slugs = []
   })
-
 });

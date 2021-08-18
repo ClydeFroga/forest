@@ -77,4 +77,11 @@ $cat_link = get_category_link($cat_id);
 			</span>
 		<?php } ?>
 	</div>
+
+	<?php
+	if(is_tax('sections', 2012)) { ?>
+
+        <p><?php echo term_description(); ?></p>
+	<?php } ?>
 </div>
+

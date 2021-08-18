@@ -2,8 +2,8 @@
 	$lastMagazine = get_terms(array(
         'taxonomy' => 'issue',
         'number' => '2',
-        'order_by' => 'term_order',
-        'order' => 'ASC',
+        'orderby' => 'slug',
+        'order' => 'DESC',
     ));
 $lastMagazine = array_values($lastMagazine);
 	$term = $lastMagazine[1];

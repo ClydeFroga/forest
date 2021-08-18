@@ -1,9 +1,10 @@
 <?php
 $expertPage = is_tax('expert');
+
 if($expertPage) {
     $expertCount = count($wp_query -> posts);
     if($expertCount < 13) {
-        $query = new WP_Query( [
+        $queryExpert = new WP_Query( [
             'posts_per_page' => 13 - $expertCount,
             'offset' => 0,
             'ignore_sticky_posts'=>true,
@@ -117,12 +118,13 @@ if(have_posts()) {
         <?php $count++;
     }
 
-    if($query) { ?>
+    if($queryExpert) { ?>
         <a href="<?php echo home_url(); ?>/sections/novosti" class="h2Title">Новости</a>
         <?php $specCount = 0;
         $over = false;
-        while($query->have_posts()){
-            $query->the_post();
+
+        while($queryExpert->have_posts()){
+	        $queryExpert->the_post();
             if($expertCount < 5) {
                 if($specCount < (4 - $expertCount)) {
                     require locate_template('includes/horizontalBarDiv.php');

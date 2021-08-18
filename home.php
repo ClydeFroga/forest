@@ -39,9 +39,11 @@
     </div>
 	
 	<?php get_template_part('includes/mainPageWrapper-part3'); ?>
-	
-	<?php get_template_part('includes/mainPageWrapper-part4'); ?>
-	
+</div>
+
+<?php get_template_part('includes/mainPageWrapper-part6'); ?>
+
+<div class="container">
 	<?php get_template_part('includes/mainPageWrapper-part5'); ?>
 
     <div class="mainPageWrapper-part3 mainPageWrapper-part3Bottom">
@@ -125,7 +127,9 @@
     </div>
 </div>
 
-<?php get_template_part('includes/mainPageWrapper-part6'); ?>
+<div class="container">
+	<?php get_template_part('includes/mainPageWrapper-part4'); ?>
+</div>
 
 <?php get_template_part('includes/bigSubForm'); ?>
 

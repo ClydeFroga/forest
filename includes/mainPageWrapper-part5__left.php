@@ -17,8 +17,8 @@
         $lastMagazine = get_terms(array(
             'taxonomy' => 'issue',
             'number' => '2',
-            'order_by' => 'term_order',
-            'order' => 'ASC',
+            'orderby' => 'slug',
+            'order' => 'DESC',
         ));
         $lastMagazine = array_values($lastMagazine);
 
@@ -59,8 +59,9 @@
 					$magazins = get_terms(array(
 						'taxonomy' => 'issue',
 						'number' => '4',
+						'orderby' => 'slug',
 						'offset' => $off,
-						'order' => 'ASC',
+						'order' => 'DESC',
 					));
 					foreach( $magazins as $mag ) {
 				?>

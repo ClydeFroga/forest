@@ -20,7 +20,14 @@
 				 ?>
 			<div class="tags">
 				<?php
-					$cate = array_slice(get_the_terms(get_the_ID(), 'sections'), 0, 2);
+                    $sections = get_the_terms(get_the_ID(), 'sections');
+
+                    if($sections) {
+	                    $cate = array_slice($sections, 0, 2);
+                    } else {
+	                    $cate = [];
+                    }
+
 					if($cate) {
 						foreach ($cate as $cat) { ?>
 							<a href="<?php echo get_category_link($cat -> term_id); ?>"><?php echo $cat -> name; ?></a>

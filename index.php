@@ -2,7 +2,9 @@
 
 <div class="container">
   <div class="rubric <?php if(is_tax('issue')) echo 'issue'; if(is_tax('expert')) echo 'expert_pageSingle'?>">
-		<?php get_template_part('includes/breadcrumbs');
+		<?php
+//        $insideView = true;
+        require locate_template('includes/breadcrumbs.php');
 
 		if(is_category() || is_tax('sections')) {
            require locate_template('includes/filter.php');
@@ -12,7 +14,6 @@
         get_template_part('includes/horizontalBarIssue');
         ?>
 	<?php } ?>
-
 
       <?php require locate_template('includes/fourBlocks.php'); ?>
 		

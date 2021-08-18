@@ -51,12 +51,11 @@
             </div>
 		</div>
 
-
 		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/app.min.js?version=1.3.4"></script>
 		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/swiper.min.js"></script>
 		<script>svg4everybody();</script>
 	</footer>
-	<?php get_template_part('includes/counters'); ?>
+
 	<?php wp_footer(); ?>
     <script>
         function isInternetExplorer() {

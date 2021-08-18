@@ -14,8 +14,8 @@
 					$magazines = get_terms(array(
 						'taxonomy' => 'issue',
 						'number' => '9',
-						'order_by' => 'term_order',
-						'order' => 'ASC',
+						'orderby' => 'slug',
+						'order' => 'DESC',
 					));
 					foreach( $magazines as $mag ) {
 						require locate_template('includes/magazine__item.php');
@@ -28,8 +28,8 @@
 						'taxonomy' => 'issue',
 						'offset' => '9',
 						'number' => '9',
-						'order' => 'ASC',
-						'order_by' => 'term_order',
+						'order' => 'DESC',
+						'orderby' => 'slug',
 						
 					));
 					foreach( $magazines2 as $mag ) {

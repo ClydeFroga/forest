@@ -89,17 +89,19 @@ function makeHeight() {
     let blc2 = document.querySelector('.header__container')
     let width = document.documentElement.clientWidth;
     if(!blc2.classList.contains('collapsed')) {
+        let heightOfImg;
         if (width >= 577) {
             if(!blc2.classList.contains('collapsed')) {
-                let heightOfImg = Math.ceil((width / 2000) * 220);
-                blc2.style.height = `${heightOfImg}px`
+                heightOfImg = Math.ceil((width / 2000) * 220);
             }
         } else {
             if(!blc2.classList.contains('collapsed')) {
-                let heightOfImg = Math.ceil((width / 576) * 100);
-                blc2.style.height = `${heightOfImg}px`
+                heightOfImg = Math.ceil((width / 576) * 100);
             }
         }
+        blc2.style.transition = `all 0s`
+        blc2.style.height = `${heightOfImg}px`
+        setTimeout(() => blc2.style.transition = `all 1s`, 500)
     }
 }
 

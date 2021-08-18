@@ -9,8 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://yastatic.net/pcode/adfox/loader.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="<?php bloginfo('template_url')?>/style/swiper.css" media="none" onload="if(media!='all')media='all'">
-	<link rel="stylesheet" href="<?php bloginfo('template_url')?>/style.css?version=1.8.13">
+	<link rel="stylesheet" href="<?php bloginfo('template_url')?>/style.css?version=1.8.19">
 	<link rel="stylesheet" href="<?php bloginfo('template_url')?>/style/fonts.css?version=3">
+	<?php get_template_part('includes/counters'); ?>
     <?php get_template_part('includes/vkPixel'); ?>
     <?php get_template_part('includes/fbPixel'); ?>
     <?php wp_head();?>
@@ -23,7 +24,7 @@
   <script charset="UTF-8" src="//web.webpushs.com/js/push/65dfc2df3beed581bcf8ab1f412b9273_1.js" async></script>
 </head>
 <body>
-<?php get_template_part('includes/mailCounter'); ?>
+
 <?php
 if(has_category(2058)){
     dynamic_sidebar('protobaner');

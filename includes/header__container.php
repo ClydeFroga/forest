@@ -48,4 +48,4 @@
 </div>
 
 <script src="<?php bloginfo('template_url')?>/js/localStorage.min.js"></script>
-<script src="<?php bloginfo('template_url')?>/js/newHeader.min.js?version=5.11"></script>
+<script src="<?php bloginfo('template_url')?>/js/newHeader.min.js?version=5.12"></script>
