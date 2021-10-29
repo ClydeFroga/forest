@@ -1,10 +1,20 @@
-<?php get_header(); ?>
+<?php get_header();
+
+$term = get_queried_object();
+$term_id = $term -> term_id;
+$image_id = get_term_meta( $term_id, '_thumbnail_id', 1 );
+$image_url = wp_get_attachment_image_url( $image_id, 'medium' );
+?>
 
 <div class="container">
   <div class="rubric <?php if(is_tax('issue')) echo 'issue'; if(is_tax('expert')) echo 'expert_pageSingle'?>">
 		<?php
 //        $insideView = true;
-        require locate_template('includes/breadcrumbs.php');
+        if(is_tax('issue')) {
+            get_template_part('includes/breadcrumbs');
+        } else {
+            require locate_template('includes/rubric__top.php');
+        }
 
 		if(is_category() || is_tax('sections')) {
            require locate_template('includes/filter.php');

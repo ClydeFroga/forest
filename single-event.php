@@ -1,9 +1,36 @@
-<?php get_header();
-
-?>
+<?php get_header(); ?>
 
 <div class="container single">
 	<?php get_template_part('includes/breadcrumbs'); ?>
+
+    <div class="single__main">
+        <div class="firstContent verticalBlock verticalBlockMain">
+            <a class="verticalBlock__ImgBlc">
+                <div class="imgBlock imgBlockFull">
+                    <?php the_post_thumbnail('full'); ?>
+                    <figcaption class="sign">
+                        <?php
+                        echo the_post_thumbnail_caption();
+                        ?>
+                    </figcaption>
+                </div>
+            </a>
+
+            <a class="verticalBlock__TextBlc">
+                <h1>
+                    <?php the_title(); ?>
+                </h1>
+            </a>
+
+        </div>
+
+        <div class="single__mainContent">
+            <?php the_content(); ?>
+            <?php get_template_part('includes/foxyD'); ?>
+        </div>
+
+        <?php get_template_part('includes/sharingAndErrors'); ?>
+    </div>
 	
 	<div class=" foxyOne">
 		<?php get_template_part('includes/foxyA'); ?>
@@ -17,8 +44,6 @@
 	<div class=" foxyFour">
 		<?php get_template_part('includes/foxyE'); ?>
 	</div>
-	
-	<?php get_template_part('includes/foxyD'); ?>
 	<div class="foxyFullOne">
 		<?php get_template_part('includes/foxyFullOne'); ?>
 	</div>
@@ -48,44 +73,12 @@
 		
 		wp_reset_postdata();
 	?>
+
 	<?php
 		$readersChoiseLimit = 5;
 		$readersChoiseName = 'Выбор читателей';
 		require locate_template('includes/readersChoise.php');
 	?>
-	
-
-  	<div class="firstContent verticalBlock verticalBlockMain">
-    <a class="verticalBlock__ImgBlc">
-      <div class="imgBlock imgBlockFull">
-				<?php the_post_thumbnail('full'); ?>
-          <figcaption class="sign">
-		      <?php
-		      echo the_post_thumbnail_caption();
-		      ?>
-          </figcaption>
-      </div>
-    </a>
-
-    <a class="verticalBlock__TextBlc">
-      <h1>
-				<?php the_title(); ?>
-      </h1>
-    </a>
-  
-  </div>
-		<?php //get_template_part('includes/grade'); ?>
-		
-		<div class="disqus">
-			<?php //comments_template();?>
-		</div>
-		
-		<?php get_template_part('includes/sharingAndErrors'); ?>
-
-	
-  <div class="single__mainContent">
-		<?php the_content(); ?>
-	</div>
 	
 	<?php get_template_part('includes/greenBlock'); ?>
 
@@ -107,6 +100,7 @@
 		$TopLeft = false;
 		wp_reset_postdata();
 	?>
+
 	<?php get_template_part('includes/mainPageWrapper-part3'); ?>
  
 </div>

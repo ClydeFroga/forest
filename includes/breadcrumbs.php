@@ -5,7 +5,6 @@ $cat_link = get_category_link($cat_id);
 ?>
 
 <div class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
-	<h2 class="h2Title"><?php echo $cat_name ?></h2>
 	<div>
 		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
 			<a href="<?php echo home_url(); ?>" itemprop="item">
@@ -77,11 +76,5 @@ $cat_link = get_category_link($cat_id);
 			</span>
 		<?php } ?>
 	</div>
-
-	<?php
-	if(is_tax('sections', 2012)) { ?>
-
-        <p><?php echo term_description(); ?></p>
-	<?php } ?>
 </div>
 

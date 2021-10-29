@@ -10,18 +10,18 @@
             </h1>
         </div>
 
-		<div class="verticalBlock__ImgBlc">
-			<div class="imgBlock imgBlockFull">
-				<?php the_post_thumbnail('full'); ?>
-                <figcaption class="sign">
-					<?php
-					echo the_post_thumbnail_caption();
-					?>
-                </figcaption>
-			</div>
-			<?php if(has_tag(2123)) {
-				?> <span>Новость часа</span> <?php  } ?>
-		</div>
+<!--		<div class="verticalBlock__ImgBlc">-->
+<!--			<div class="imgBlock imgBlockFull">-->
+<!--				--><?php //the_post_thumbnail('full'); ?>
+<!--                <figcaption class="sign">-->
+<!--					--><?php
+//					echo the_post_thumbnail_caption();
+//					?>
+<!--                </figcaption>-->
+<!--			</div>-->
+<!--			--><?php //if(has_tag(2123)) {
+//				?><!-- <span>Новость часа</span> --><?php // } ?>
+<!--		</div>-->
 		
 		<?php
 			$tagsReq = true;

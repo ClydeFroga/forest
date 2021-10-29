@@ -81,11 +81,12 @@
 			$movingClass = 'movingPicturesOne';
 			$TopLeft = true;
 			$a = get_option( 'sticky_posts' );
-			$sss = array_slice($a, 0, 6);
+
 			
 			$query = new WP_Query( array(
-				'numberposts' => 6,
-				'post__in'     => $sss,
+				'posts_per_page' => 12,
+				'post__in'     => $a,
+          'ignore_sticky_posts'=>true,
 			) );
 			if ( $query->have_posts() ) {
 				shuffle($query -> posts);

@@ -1,56 +1,95 @@
 <?php get_header();
 
 $ID = get_the_ID();
+$is_news = has_term(2005, 'sections');
 ?>
 
 <div class="container single <?php if (is_page()) echo 'page' ?>">
 	<?php get_template_part('includes/breadcrumbs'); ?>
 
-    <?php if (!is_page()) { ?>
-        <div class="firstContent verticalBlock verticalBlockMain ">
-            <div class="verticalBlock__ImgBlc">
-                <div class="imgBlock imgBlockFull">
-                    <?php the_post_thumbnail('full'); ?>
+    <div class="single__main">
+        <?php if (!is_page()) { ?>
+            <div class="firstContent verticalBlock verticalBlockMain ">
+<!--                --><?php //if(has_post_thumbnail()) { ?>
+                    <div class="verticalBlock__ImgBlc">
+                        <div class="imgBlock imgBlockFull">
+                            <?php if($is_news) { ?>
+                                <img src="<?php bloginfo('template_url')?>/img/lk.jpg">
+                            <?php } else { ?>
+                                <?php the_post_thumbnail('full'); ?>
+                           <?php  } ?>
+                        </div>
+                        <figcaption class="sign">
+                            <?php
+                            echo the_post_thumbnail_caption();
+                            ?>
+                        </figcaption>
+                        <?php if(has_tag(2123)) {
+                            ?> <span>Новость часа</span> <?php  } ?>
+                    </div>
+<!--                --><?php //} ?>
 
+                <div class="verticalBlock__TextBlc">
+                    <h1 class="titleScroll">
+                        <?php the_title(); ?>
+                    </h1>
                 </div>
-                <figcaption class="sign">
-		            <?php
-		            echo the_post_thumbnail_caption();
-		            ?>
-                </figcaption>
-                <?php if(has_tag(2123)) {
-                    ?> <span>Новость часа</span> <?php  } ?>
-            </div>
 
-            <div class="verticalBlock__TextBlc">
-                <h1 class="titleScroll">
-                    <?php the_title(); ?>
-                </h1>
+                <?php
+                $tagsReq = true;
+                require locate_template('includes/dateAndViews.php');
+                $tagsReq = false;
+                ?>
+
+                <?php require locate_template('includes/expert.php'); ?>
+
             </div>
+        <?php } ?>
+
+        <div class="single__mainContent article-loaded">
+            <?php if (is_page()) { ?>
+                <h1 style="margin-top: 0;"><?php the_title(); ?></h1>
+            <?php } ?>
 
             <?php
-            $tagsReq = true;
-            require locate_template('includes/dateAndViews.php');
-            $tagsReq = false;
+            $content = get_the_content();
+            the_content();
+
+            $terms=get_the_terms( $ID, 'issue' );
+            if( is_array( $terms ) ){
+                foreach( $terms as $term ){
+                    echo '<div class="writer"><span class="writer__text" >Статья опубликована в журнале <a href="'. get_term_link( $term->term_id, $term->taxonomy ) .'">'. $term->name .'</a></span>
+      </div>';
+                }
+            };
+            if(has_term(2005, 'sections')) {
+                $errors = false;
+                $sharing = true;
+                require locate_template('includes/sharingAndErrors.php');
+                $sharing = false;
+                get_template_part('includes/foxyDEdited');
+            } else {
+                get_template_part('includes/foxyD');
+            }
             ?>
-
-            <?php require locate_template('includes/expert.php'); ?>
-
         </div>
 
-        <?php
-        if (has_term(2005, 'sections')) {
-            $errors = true;
+        <?php if (!is_page()) { ?>
+            <?php
+            if (has_term(2005, 'sections')) {
+                $errors = true;
+                $sharing = false;
+            } else {
+                $errors = true;
+                $sharing = true;
+            }
+
+            require locate_template('includes/sharingAndErrors.php');
+            $errors = false;
             $sharing = false;
-        } else {
-            $errors = true;
-            $sharing = true;
-        }
-        require locate_template('includes/sharingAndErrors.php');
-        $errors = false;
-        $sharing = false;
-        ?>
-    <?php } ?>
+            ?>
+        <?php } ?>
+    </div>
 
 	<div class=" foxyOne">
 		<?php get_template_part('includes/foxyA'); ?>
@@ -75,35 +114,7 @@ $ID = get_the_ID();
 	<div class="foxyFullTwo">
 		<?php get_template_part('includes/foxyFullTwo'); ?>
 	</div>
-	
-	<div class="single__mainContent article-loaded">
-        <?php if (is_page()) { ?>
-            <h1 style="margin-top: 0;"><?php the_title(); ?></h1>
-        <?php } ?>
 
-		<?php
-			$content = get_the_content();
-			the_content();
-//			$ID = get_the_ID();
-      $terms=get_the_terms( $ID, 'issue' );
-      if( is_array( $terms ) ){
-        foreach( $terms as $term ){
-          echo '<div class="writer"><span class="writer__text" >Статья опубликована в журнале <a href="'. get_term_link( $term->term_id, $term->taxonomy ) .'">'. $term->name .'</a></span>
-      </div>';
-      }
-    };
-      if(has_term(2005, 'sections')) {
-          $errors = false;
-          $sharing = true;
-          require locate_template('includes/sharingAndErrors.php');
-          $sharing = false;
-          get_template_part('includes/foxyDEdited');
-      } else {
-          get_template_part('includes/foxyD');
-      }
-        ?>
-	</div>
-	
 	<?php
 		global $post;
 		if(strlen($content) < 3000 && !has_term(2005, 'sections') && !is_page()) {
@@ -190,10 +201,6 @@ $ID = get_the_ID();
 
 	<?php if (!is_page() && !has_term(2005, 'sections')) { ?>
 		<?php get_template_part('includes/grade'); ?>
-
-<!--		<div class="disqus">-->
-<!--			--><?php //comments_template();?>
-<!--		</div>-->
 	<?php } ?>
 	
 	<?php get_template_part('includes/greenBlock'); ?>

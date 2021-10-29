@@ -3,7 +3,7 @@
 <div class="container">
 
   <div class="news">
-		<?php get_template_part('includes/breadcrumbs'); ?>
+		<?php get_template_part('includes/rubric__top'); ?>
 	
 		<?php if(have_posts()) {
 			$count = 0;

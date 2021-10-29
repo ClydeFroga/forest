@@ -27,11 +27,6 @@
 				<a href="tel:+73912190119">+7 391 219 01 19</a>
 				<a href="mailto:forest@pgmedia.ru">forest@pgmedia.ru</a>
                 <?php get_template_part('includes/socialMedia'); ?>
-				<div class="">
-					<svg class="" role="img" >
-						<use href="<?php echo get_template_directory_uri();?>/img/icons.svg#i-MIR"/>
-					</svg>
-				</div>
 			</div>
 			<div class="footer__five">
 							<span>
@@ -51,7 +46,7 @@
             </div>
 		</div>
 
-		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/app.min.js?version=1.3.4"></script>
+		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/app.min.js?version=1.4.0"></script>
 		<script type="text/javascript" src="<?php bloginfo('template_url')?>/js/swiper.min.js"></script>
 		<script>svg4everybody();</script>
 	</footer>
